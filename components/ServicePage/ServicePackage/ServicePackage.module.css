@@ -1,0 +1,321 @@
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(380px, 1fr);
+  gap: clamp(75px, 10vw, 150px);
+  align-items: center;
+  padding: clamp(105px, 9vw, 155px) 0;
+}
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin: 0 0 24px;
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #85858d;
+}
+.kicker::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--brand);
+}
+.intro h2 {
+  margin: 0;
+  font-size: clamp(2.9rem, 4.3vw, 4.9rem);
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+  color: var(--ink);
+}
+.intro h2 span {
+  color: var(--brand);
+}
+.description {
+  max-width: 42ch;
+  margin: 26px 0 0;
+  font-size: 0.91rem;
+  line-height: 1.7;
+  color: #94949b;
+}
+.seal {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  margin-top: 36px;
+  display: grid;
+  place-items: center;
+}
+.seal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--brand);
+  border-radius: 50%;
+}
+.seal::after {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+.sealText {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: sealRotate 18s linear infinite;
+}
+.sealText text {
+  fill: #f1f1f3;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+}
+.sealDotOne,
+.sealDotTwo {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 14px rgba(229, 23, 31, 0.6);
+}
+.sealDotOne {
+  top: 20px;
+  left: 24px;
+}
+.sealDotTwo {
+  right: 24px;
+  bottom: 20px;
+}
+.sealInner {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(229, 23, 31, 0.12),
+    rgba(229, 23, 31, 0.04) 45%,
+    rgba(0, 0, 0, 0) 78%
+  );
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.sealInner strong {
+  font-size: 3rem;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  color: var(--ink);
+}
+.sealInner span {
+  margin-top: 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.sealInner small {
+  max-width: 96px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.46rem;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b7b7bd;
+}
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  background:
+    radial-gradient(
+      50% 45% at 90% 5%,
+      rgba(229, 23, 31, 0.12),
+      transparent 70%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.01)
+    );
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.26);
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #818188;
+}
+.top span:last-child {
+  color: var(--brand);
+}
+.price {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 35px;
+}
+.price small {
+  padding-bottom: 10px;
+  font-size: 0.7rem;
+  color: #7c7c83;
+}
+.price strong {
+  font-size: clamp(4rem, 6vw, 6.2rem);
+  line-height: 0.8;
+  letter-spacing: -0.07em;
+  color: var(--ink);
+}
+.timing {
+  margin: 18px 0 0;
+  font-size: 0.8rem;
+  color: #898990;
+}
+.card ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 30px 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.card li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 10px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #b7b7bd;
+}
+.card li span {
+  color: var(--brand);
+}
+.note {
+  margin-bottom: 28px;
+  padding: 17px;
+  border: 1px solid rgba(229, 23, 31, 0.14);
+  border-radius: 15px;
+  background: rgba(229, 23, 31, 0.025);
+}
+.note strong {
+  display: block;
+  font-size: 0.78rem;
+  color: #d9d9dd;
+}
+.note p {
+  margin: 7px 0 0;
+  font-size: 0.71rem;
+  line-height: 1.55;
+  color: #707077;
+}
+@keyframes sealRotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 850px) {
+  .section {
+    grid-template-columns: 1fr;
+    gap: 55px;
+  }
+  .intro {
+    max-width: 600px;
+  }
+  .card {
+    max-width: 650px;
+    width: 100%;
+  }
+}
+@media (max-width: 650px) {
+  .section {
+    padding: 75px 0;
+  }
+  .intro h2 {
+    font-size: clamp(2.5rem, 11vw, 3.5rem);
+  }
+  .seal {
+    width: 160px;
+    height: 160px;
+  }
+  .seal::after {
+    inset: 17px;
+  }
+  .sealText text {
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+  .sealDotOne {
+    top: 18px;
+    left: 20px;
+  }
+  .sealDotTwo {
+    right: 20px;
+    bottom: 18px;
+  }
+  .sealInner {
+    width: 108px;
+    height: 108px;
+  }
+  .sealInner strong {
+    font-size: 2.4rem;
+  }
+  .sealInner span {
+    font-size: 0.58rem;
+    letter-spacing: 0.26em;
+  }
+  .sealInner small {
+    max-width: 82px;
+    font-size: 0.4rem;
+  }
+  .card {
+    padding: 24px;
+    border-radius: 22px;
+  }
+  .price strong {
+    font-size: 4.4rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sealText {
+    animation: none;
+  }
+}
+.packageSeal {
+  margin-top: 36px;
+  width: 210px;
+}
+@media (max-width: 850px) {
+  .packageSeal {
+    width: 200px;
+  }
+}
+@media (max-width: 650px) {
+  .packageSeal {
+    width: 175px;
+    margin-top: 30px;
+  }
+}

@@ -1,0 +1,382 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(110px, 10vw, 170px);
+  background:
+    radial-gradient(
+      40% 30% at 70% 45%,
+      rgba(229, 23, 31, 0.055),
+      transparent 75%
+    ),
+    var(--bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.inner {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns:
+    minmax(320px, 0.75fr)
+    minmax(0, 1.25fr);
+  align-items: start;
+  gap: clamp(80px, 10vw, 160px);
+}
+.intro {
+  position: sticky;
+  top: 130px;
+  max-width: 500px;
+}
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.21em;
+  color: #9c9ca3;
+  opacity: 0;
+  transform: translateY(15px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+.kickerLine {
+  width: 30px;
+  height: 1px;
+  background: var(--brand);
+}
+.heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 4.3vw, 4.8rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(25px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
+}
+.heading span {
+  color: var(--brand);
+}
+.description {
+  max-width: 390px;
+  margin-top: 30px;
+  font-size: 0.96rem;
+  line-height: 1.7;
+  color: #9999a1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.8s ease 0.15s,
+    transform 0.8s ease 0.15s;
+}
+.introCta {
+  width: fit-content;
+  margin-top: 32px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.8s ease 0.25s,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+}
+.route {
+  position: relative;
+  min-height: 960px;
+}
+.routeSvg {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 180px;
+  height: 100%;
+  transform: translateX(-50%);
+  overflow: visible;
+  pointer-events: none;
+}
+.routeBackground {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1.5;
+}
+.routeProgress {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 5px rgba(229, 23, 31, 0.5))
+    drop-shadow(0 0 14px rgba(229, 23, 31, 0.12));
+}
+.steps {
+  position: relative;
+  z-index: 2;
+  height: 960px;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+}
+.step {
+  --step-delay: 0s;
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    54px
+    minmax(0, 1fr);
+  align-items: center;
+  opacity: 0;
+  transform: translateY(25px);
+}
+.stepContent {
+  grid-column: 1;
+  max-width: 350px;
+  padding-right: 32px;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stepReverse .stepContent {
+  grid-column: 3;
+  padding-right: 0;
+  padding-left: 32px;
+}
+.marker {
+  grid-column: 2;
+  position: relative;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  border-radius: 50%;
+  border: 1px solid rgba(229, 23, 31, 0.5);
+  background: var(--bg);
+  box-shadow:
+    0 0 0 6px rgba(229, 23, 31, 0.035),
+    0 0 20px rgba(229, 23, 31, 0.08);
+  color: var(--brand);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transform: scale(0);
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+.stepLabel {
+  display: inline-block;
+  margin-bottom: 14px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.stepContent h3 {
+  margin: 0;
+  font-size: clamp(1.55rem, 2vw, 2rem);
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.stepContent p {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #929299;
+}
+.step:hover .stepContent {
+  transform: translateX(-6px);
+}
+.stepReverse:hover .stepContent {
+  transform: translateX(6px);
+}
+.step:hover .marker {
+  background: var(--brand);
+  color: #fff;
+  box-shadow:
+    0 0 0 8px rgba(229, 23, 31, 0.05),
+    0 0 25px rgba(229, 23, 31, 0.2);
+}
+.stepContent::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 35px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.16), transparent);
+}
+.step:not(.stepReverse) .stepContent::after {
+  right: 52%;
+}
+.stepReverse .stepContent::after {
+  left: 52%;
+  transform: rotate(180deg);
+}
+.visible .kicker,
+.visible .heading,
+.visible .description,
+.visible .introCta {
+  opacity: 1;
+  transform: translateY(0);
+}
+.visible .routeProgress {
+  animation: drawRoute 2.4s cubic-bezier(0.65, 0, 0.35, 1) 0.25s forwards;
+}
+.visible .step {
+  animation: revealStep 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--step-delay)
+    forwards;
+}
+.visible .step:nth-child(1) .marker {
+  animation: markerReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+}
+.visible .step:nth-child(2) .marker {
+  animation: markerReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.85s forwards;
+}
+.visible .step:nth-child(3) .marker {
+  animation: markerReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) 1.35s forwards;
+}
+.visible .step:nth-child(4) .marker {
+  animation: markerReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) 1.85s forwards;
+}
+@keyframes drawRoute {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes revealStep {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes markerReveal {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@media (max-width: 1200px) {
+  .inner {
+    max-width: 1050px;
+    gap: 80px;
+  }
+  .heading {
+    font-size: clamp(2.8rem, 4.8vw, 4.2rem);
+  }
+}
+@media (max-width: 950px) {
+  .inner {
+    max-width: 760px;
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+  .intro {
+    position: static;
+    max-width: 600px;
+  }
+  .route {
+    min-height: 880px;
+  }
+  .steps {
+    height: 880px;
+  }
+}
+@media (max-width: 650px) {
+  .section {
+    padding-block: 80px;
+  }
+  .inner {
+    gap: 60px;
+  }
+  .heading {
+    font-size: clamp(2.6rem, 12vw, 3.8rem);
+  }
+  .route {
+    min-height: auto;
+    padding-left: 26px;
+  }
+  .routeSvg {
+    left: 10px;
+    width: 1px;
+    transform: none;
+  }
+  .routeBackground {
+    d: path('M 0 0 L 0 960');
+  }
+  .routeProgress {
+    d: path('M 0 0 L 0 960');
+  }
+  .steps {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 55px;
+  }
+  .step {
+    display: grid;
+    grid-template-columns:
+      46px
+      minmax(0, 1fr);
+    gap: 16px;
+  }
+  .marker {
+    grid-column: 1;
+    grid-row: 1;
+    width: 40px;
+    height: 40px;
+  }
+  .stepContent,
+  .stepReverse .stepContent {
+    grid-column: 2;
+    padding: 0;
+  }
+  .stepContent::after {
+    display: none;
+  }
+  .step:hover .stepContent,
+  .stepReverse:hover .stepContent {
+    transform: none;
+  }
+  .stepContent h3 {
+    font-size: 1.45rem;
+  }
+  .stepContent p {
+    font-size: 0.87rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kicker,
+  .heading,
+  .description,
+  .introCta,
+  .step {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+  .routeProgress {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .marker {
+    transform: scale(1);
+    animation: none;
+  }
+}

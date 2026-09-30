@@ -1,0 +1,36 @@
+.page {
+  display: block;
+}
+@media (max-width: 768px) {
+  .page {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero {
+    order: 1;
+  }
+  .services {
+    order: 2;
+  }
+  .payment {
+    order: 3;
+  }
+  .portfolio {
+    order: 4;
+  }
+  .contact {
+    order: 5;
+  }
+  .faq {
+    order: 6;
+  }
+  .about {
+    order: 7;
+  }
+  .process {
+    order: 8;
+  }
+  .principles {
+    display: none;
+  }
+}

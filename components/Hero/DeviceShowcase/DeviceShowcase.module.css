@@ -1,0 +1,137 @@
+.wrap {
+  --move-x: 0px;
+  --move-y: 0px;
+  --rotate-x: 0deg;
+  --rotate-y: 0deg;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  position: relative;
+  isolation: isolate;
+  width: 112%;
+  margin-left: -2%;
+  perspective: 1400px;
+  animation: showcaseReveal 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+.parallax {
+  position: relative;
+  transform: translate3d(var(--move-x), var(--move-y), 0)
+    rotateX(var(--rotate-x)) rotateY(var(--rotate-y));
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+.float {
+  animation: deviceFloat 7s ease-in-out infinite;
+  will-change: transform;
+}
+.devices {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 36px 65px rgba(0, 0, 0, 0.62))
+    drop-shadow(0 0 30px rgba(229, 23, 31, 0.06));
+}
+.glow {
+  position: absolute;
+  z-index: -2;
+  width: 82%;
+  height: 70%;
+  left: var(--glow-x);
+  top: var(--glow-y);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(229, 23, 31, 0.2) 0%,
+    rgba(229, 23, 31, 0.09) 35%,
+    transparent 72%
+  );
+  filter: blur(75px);
+  transition:
+    left 0.7s ease,
+    top 0.7s ease;
+  animation: glowBreath 6s ease-in-out infinite;
+}
+.floor {
+  position: absolute;
+  z-index: -1;
+  left: 13%;
+  right: 8%;
+  bottom: 4%;
+  height: 16%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(229, 23, 31, 0.24),
+    rgba(229, 23, 31, 0.07) 42%,
+    transparent 73%
+  );
+  filter: blur(28px);
+  opacity: 0.76;
+}
+@keyframes showcaseReveal {
+  from {
+    opacity: 0;
+    transform: translateX(45px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+@keyframes deviceFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes glowBreath {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(0.97);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+@media (max-width: 1200px) {
+  .wrap {
+    width: 106%;
+    margin-left: -2%;
+  }
+}
+@media (max-width: 1023px) {
+  .wrap {
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+}
+@media (max-width: 768px) {
+  .wrap {
+    width: 108%;
+    margin-left: -4%;
+  }
+  .glow {
+    width: 95%;
+    height: 80%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wrap,
+  .float,
+  .glow {
+    animation: none;
+  }
+  .parallax {
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,349 @@
+.experience {
+  min-width: 0;
+  border: 1px solid #363035;
+  background:
+    radial-gradient(ellipse at 90% 0, #40121750, transparent 65%), #101011;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 90px #0005;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 21px 24px;
+  color: #929299;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid #ffffff0d;
+}
+.top > span:first-child {
+  color: #ddd;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.top i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-hot);
+  box-shadow: 0 0 12px #ff3025;
+}
+.controls {
+  display: flex;
+  gap: 5px;
+  padding: 18px 20px 4px;
+  flex-wrap: wrap;
+}
+.controls button {
+  padding: 10px 13px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: #b4b4bc;
+  font-size: 0.78rem;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.controls button[aria-pressed='true'] {
+  color: #fff;
+  border-color: #e5171f66;
+  background: #e5171f17;
+}
+.canvas {
+  padding: 22px;
+  min-height: 380px;
+}
+.browser {
+  border: 1px solid #ffffff19;
+  border-radius: 13px;
+  overflow: hidden;
+  animation: appear 0.4s ease both;
+}
+.browserBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 13px 16px;
+  background: #1d1d21;
+  color: #96969d;
+  font-size: 0.64rem;
+}
+.browserBar > span:first-child {
+  color: #5a5a63;
+  letter-spacing: 3px;
+}
+.screen {
+  padding: 22px;
+  background:
+    radial-gradient(ellipse at bottom right, #54101660, transparent 70%),
+    #151518;
+  min-height: 290px;
+}
+.brand {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: #dedee4;
+}
+.brand > span {
+  color: var(--brand-hot);
+}
+.screenCopy {
+  margin-top: 28px;
+}
+.index {
+  color: #ff646b;
+  font-size: 0.61rem;
+  letter-spacing: 0.13em;
+}
+.screenCopy h3,
+.funnelText h3 {
+  max-width: 360px;
+  margin-top: 12px;
+  font-size: clamp(1.5rem, 2.3vw, 2.1rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+.screenCopy p,
+.funnelText p {
+  margin-top: 12px;
+  color: #b2b2bb;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.demoButton {
+  display: inline-block;
+  padding: 11px 15px;
+  background: var(--brand);
+  color: white;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  margin-top: 18px;
+}
+.buildLines {
+  display: flex;
+  gap: 8px;
+  margin-top: 22px;
+}
+.buildLines i {
+  height: 3px;
+  flex: 1;
+  background: #ffffff15;
+  transform-origin: left;
+  animation: grow 0.7s ease both;
+}
+.buildLines i:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.buildLines i:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.miniCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 24px;
+}
+.miniCards span {
+  padding: 13px 8px;
+  border: 1px solid #ffffff16;
+  border-radius: 6px;
+  font-size: 0.6rem;
+  color: #c6c6cd;
+}
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 24px 22px;
+  font-size: 0.7rem;
+  color: #93939f;
+}
+.chat {
+  border: 1px solid #ffffff17;
+  border-radius: 15px;
+  padding: 18px;
+  animation: appear 0.4s both;
+}
+.botTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.83rem;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  height: 36px;
+  width: 36px;
+  border-radius: 11px;
+  background: var(--brand);
+  color: #fff;
+  font-weight: bold;
+}
+.botTitle small {
+  display: block;
+  color: #9b9ba4;
+  font-size: 0.65rem;
+  margin-top: 4px;
+}
+.userMessage,
+.botMessage {
+  padding: 14px 16px;
+  line-height: 1.65;
+  font-size: 0.83rem;
+  max-width: 90%;
+}
+.userMessage {
+  margin: 24px 0 12px auto;
+  background: #441519;
+  border: 1px solid #77313a;
+  border-radius: 14px 14px 0 14px;
+}
+.botMessage {
+  background: #242427;
+  border-radius: 14px 14px 14px 0;
+  animation: appear 0.5s 0.15s both;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.tags span {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ffffff20;
+  color: #c4c4cb;
+  font-size: 0.65rem;
+}
+.chatInput {
+  margin-top: 24px;
+  border-top: 1px solid #ffffff15;
+  padding-top: 14px;
+  color: #8b8b95;
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+}
+.chatInput span {
+  color: var(--brand-hot);
+}
+.funnel {
+  position: relative;
+}
+.bridge {
+  width: 100%;
+  height: auto;
+  margin-top: 4px;
+  overflow: visible;
+}
+.bridge path {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 2;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.4s ease forwards;
+  filter: drop-shadow(0 0 8px #ff172f88);
+}
+.bridge circle {
+  fill: var(--brand-hot);
+}
+.stations {
+  display: flex;
+  justify-content: space-between;
+  margin: -24px 0 0;
+  position: relative;
+}
+.stations > span {
+  width: 80px;
+  text-align: center;
+  color: #888890;
+  font-size: 1.5rem;
+}
+.stations > span[data-active='true'] {
+  color: #ff525b;
+}
+.stations small {
+  font-size: 0.68rem;
+  display: block;
+  margin-top: 8px;
+}
+.funnelText {
+  margin-top: 26px;
+  padding: 20px;
+  border-top: 1px solid #ffffff14;
+  animation: appear 0.4s ease both;
+  min-height: 170px;
+}
+@keyframes appear {
+  from {
+    opacity: 0.3;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (max-width: 600px) {
+  .top {
+    padding: 17px;
+    font-size: 0.52rem;
+    letter-spacing: 0.06em;
+  }
+  .canvas {
+    padding: 16px;
+    min-height: 370px;
+  }
+  .controls {
+    padding-inline: 12px;
+  }
+  .controls button {
+    font-size: 0.72rem;
+    padding: 9px;
+  }
+  .screen {
+    padding: 18px;
+  }
+  .bottom {
+    padding: 0 16px 18px;
+    font-size: 0.65rem;
+  }
+  .chat {
+    padding: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .browser,
+  .chat,
+  .botMessage,
+  .funnelText,
+  .buildLines i {
+    animation: none;
+  }
+  .bridge path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .controls button {
+    transition: none;
+  }
+}

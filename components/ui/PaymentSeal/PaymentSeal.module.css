@@ -1,0 +1,105 @@
+.sealWrap {
+  position: relative;
+  width: min(100%, 310px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+.sealGlow {
+  position: absolute;
+  width: 72%;
+  height: 72%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(229, 23, 31, 0.13),
+    rgba(229, 23, 31, 0.04) 45%,
+    transparent 72%
+  );
+  filter: blur(55px);
+  pointer-events: none;
+  animation: sealGlow 5s ease-in-out infinite;
+}
+.seal {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 18px 50px rgba(0, 0, 0, 0.35));
+}
+.sealOuter {
+  fill: rgba(255, 255, 255, 0.008);
+  stroke: var(--brand);
+  stroke-width: 1.6;
+}
+.sealMiddle {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1;
+}
+.sealInner {
+  fill: rgba(229, 23, 31, 0.025);
+  stroke: rgba(255, 255, 255, 0.14);
+  stroke-width: 1;
+}
+.rotatingText {
+  transform-origin: 160px 160px;
+  animation: sealRotation 24s linear infinite;
+  will-change: transform;
+}
+.sealText {
+  fill: rgba(244, 242, 239, 0.78);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 2.4px;
+}
+.sealDot {
+  fill: var(--brand);
+  filter: drop-shadow(0 0 5px rgba(229, 23, 31, 0.65));
+}
+.sealValue {
+  fill: var(--ink);
+  font-family: var(--font-display);
+  font-size: 49px;
+  font-weight: 700;
+  letter-spacing: -2px;
+}
+.sealCaption {
+  fill: var(--brand);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+@keyframes sealRotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sealGlow {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+@media (max-width: 700px) {
+  .sealWrap {
+    width: 235px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rotatingText,
+  .sealGlow {
+    animation: none;
+  }
+}

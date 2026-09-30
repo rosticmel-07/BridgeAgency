@@ -1,0 +1,41 @@
+.page {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+}
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(1200px, 100%);
+  height: 900px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: radial-gradient(
+    45% 45% at 72% 18%,
+    rgba(229, 23, 31, 0.075),
+    transparent 70%
+  );
+  opacity: 0.9;
+}
+.page::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 120px 120px;
+  mask-image: linear-gradient(to bottom, #000, transparent 38%);
+  opacity: 0.22;
+}
+.shell {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+}

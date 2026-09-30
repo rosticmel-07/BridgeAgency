@@ -1,0 +1,222 @@
+.card {
+  --delay: 0s;
+  position: relative;
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  overflow: hidden;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.018), transparent 45%),
+    #111112;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+:global(.Services_visible__dummy) {
+}
+.visible {
+  animation: cardReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--delay)
+    forwards;
+}
+.backgroundGlow {
+  position: absolute;
+  width: 340px;
+  height: 240px;
+  right: -170px;
+  bottom: -150px;
+  border-radius: 50%;
+  background: rgba(229, 23, 31, 0.13);
+  filter: blur(90px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+.backgroundIcon {
+  position: absolute;
+  right: -18px;
+  bottom: -30px;
+  width: 190px;
+  height: 190px;
+  color: #fff;
+  opacity: 0.025;
+  stroke-width: 0.8;
+  pointer-events: none;
+  transform: rotate(-3deg) scale(1);
+  transition:
+    opacity 0.45s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.icon {
+  width: 29px;
+  height: 29px;
+  color: var(--brand);
+  stroke-width: 1.4;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.35s ease;
+}
+.number {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.16);
+}
+.content {
+  position: relative;
+  z-index: 2;
+  margin-top: 28px;
+}
+.content h3 {
+  margin: 0;
+  font-size: clamp(1.45rem, 2vw, 1.9rem);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.content p {
+  max-width: 48ch;
+  margin-top: 13px;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #96969d;
+}
+.footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: auto;
+  padding-top: 38px;
+}
+.price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.from {
+  margin-bottom: 1px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #818188;
+}
+.amount {
+  font-size: clamp(2.3rem, 3vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  color: var(--ink);
+}
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 3px;
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #d7d7db;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+.arrow {
+  font-size: 1rem;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(229, 23, 31, 0.33);
+  background:
+    linear-gradient(145deg, rgba(229, 23, 31, 0.035), transparent 45%), #121213;
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.2),
+    inset 0 1px rgba(255, 255, 255, 0.025);
+}
+.card:hover .backgroundGlow {
+  opacity: 1;
+}
+.card:hover .backgroundIcon {
+  opacity: 0.055;
+  transform: rotate(-5deg) scale(1.05);
+}
+.card:hover .icon {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 7px rgba(229, 23, 31, 0.35));
+}
+.card:hover .link {
+  color: #fff;
+  border-color: var(--brand);
+}
+.card:hover .arrow {
+  transform: translateX(5px);
+}
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 900px) {
+  .card {
+    min-height: 310px;
+    padding: 28px;
+  }
+  .backgroundIcon {
+    width: 160px;
+    height: 160px;
+  }
+}
+@media (max-width: 650px) {
+  .card {
+    min-height: 300px;
+    padding: 25px;
+    clip-path: polygon(0 0, calc(100% - 17px) 0, 100% 17px, 100% 100%, 0 100%);
+  }
+  .footer {
+    padding-top: 32px;
+  }
+  .backgroundIcon {
+    width: 145px;
+    height: 145px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+  .backgroundIcon,
+  .backgroundGlow,
+  .icon,
+  .arrow {
+    transition: none;
+  }
+}
+.featured {
+  border-color: rgba(229, 23, 31, 0.55);
+  background:
+    linear-gradient(135deg, rgba(229, 23, 31, 0.09), transparent 65%), #111112;
+}

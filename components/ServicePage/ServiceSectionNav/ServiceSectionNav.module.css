@@ -1,0 +1,51 @@
+.nav {
+  position: sticky;
+  top: 88px;
+  z-index: 30;
+  margin: 0 0 30px;
+  padding: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(10, 10, 11, 0.76);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+.track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.track a {
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #77777f;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease;
+}
+.track a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.045);
+}
+@media (max-width: 700px) {
+  .nav {
+    top: 76px;
+    margin-inline: -8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-radius: 16px;
+  }
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+  .track {
+    width: max-content;
+    justify-content: flex-start;
+  }
+  .track a {
+    padding: 9px 14px;
+  }
+}

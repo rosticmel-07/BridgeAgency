@@ -1,0 +1,222 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 125px;
+  font-size: 0.72rem;
+  color: #606067;
+}
+.breadcrumb a {
+  transition: color 0.25s ease;
+}
+.breadcrumb a:hover {
+  color: var(--ink);
+}
+.breadcrumb strong {
+  font-weight: 500;
+  color: #9999a0;
+}
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.9fr);
+  gap: clamp(60px, 8vw, 120px);
+  align-items: center;
+  min-height: calc(100vh - 130px);
+  padding: 55px 0 95px;
+}
+.copy {
+  max-width: 690px;
+}
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 26px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8e8e96;
+}
+.kicker::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--brand);
+}
+.copy h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.6rem, 5.5vw, 6.5rem);
+  font-weight: 700;
+  line-height: 0.89;
+  letter-spacing: -0.065em;
+  color: var(--ink);
+}
+.copy h1 span {
+  color: var(--brand);
+}
+.lead {
+  max-width: 56ch;
+  margin: 30px 0 0;
+  font-size: clamp(0.98rem, 1.15vw, 1.12rem);
+  line-height: 1.75;
+  color: #a1a1a8;
+}
+.meta {
+  display: flex;
+  gap: 42px;
+  margin-top: 34px;
+  padding-top: 23px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.meta span {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #626269;
+}
+.meta strong {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 34px;
+}
+.secondary {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0 23px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #d8d8dc;
+  background: rgba(255, 255, 255, 0.015);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+.secondary:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.03);
+}
+.payment {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 22px 0 0;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  color: #77777f;
+}
+.payment span {
+  color: var(--brand);
+}
+.visual {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 28px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0.008)
+  );
+  box-shadow:
+    0 35px 100px rgba(0, 0, 0, 0.32),
+    inset 0 1px rgba(255, 255, 255, 0.035);
+}
+.visualGlow {
+  position: absolute;
+  z-index: -1;
+  width: 70%;
+  height: 55%;
+  left: 15%;
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(229, 23, 31, 0.13);
+  filter: blur(85px);
+}
+.visualTop {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px 14px;
+  font-size: 0.57rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #696970;
+}
+@media (max-width: 950px) {
+  .breadcrumb {
+    padding-top: 110px;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 55px;
+    padding-bottom: 80px;
+  }
+  .copy {
+    max-width: 760px;
+  }
+  .visual {
+    max-width: 720px;
+    width: 100%;
+  }
+}
+@media (max-width: 650px) {
+  .breadcrumb {
+    padding-top: 92px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0.65rem;
+  }
+  .hero {
+    gap: 42px;
+    padding: 36px 0 70px;
+  }
+  .copy h1 {
+    font-size: clamp(3rem, 14vw, 4.4rem);
+  }
+  .lead {
+    margin-top: 23px;
+    font-size: 0.91rem;
+  }
+  .meta {
+    gap: 28px;
+    margin-top: 26px;
+  }
+  .actions {
+    margin-top: 28px;
+  }
+  .actions > * {
+    width: 100%;
+  }
+  .secondary {
+    justify-content: center;
+  }
+  .visual {
+    padding: 11px;
+    border-radius: 22px;
+  }
+}

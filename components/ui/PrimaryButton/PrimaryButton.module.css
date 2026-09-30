@@ -1,0 +1,126 @@
+.button {
+  position: relative;
+  isolation: isolate;
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding-inline: 29px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 59, 67, 0.45);
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    #ff3039 0%,
+    var(--brand) 62%,
+    #c90f16 100%
+  );
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow:
+    0 8px 28px rgba(229, 23, 31, 0.2),
+    0 0 20px rgba(229, 23, 31, 0.07),
+    inset 0 1px rgba(255, 255, 255, 0.2);
+  transform: translateY(0);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+  will-change: transform;
+}
+.button::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: -60%;
+  left: -55%;
+  width: 38%;
+  height: 220%;
+  pointer-events: none;
+  transform: rotate(18deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.04),
+    rgba(255, 255, 255, 0.26),
+    rgba(255, 255, 255, 0.04),
+    transparent
+  );
+  filter: blur(1px);
+  animation: buttonShine 3.8s ease-in-out infinite;
+}
+.button::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: 0 0 24px rgba(229, 23, 31, 0.18);
+  opacity: 0.65;
+  animation: buttonGlow 3.8s ease-in-out infinite;
+}
+.text,
+.arrow {
+  position: relative;
+  z-index: 2;
+}
+.arrow {
+  flex: none;
+  font-size: 1.05rem;
+}
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 34px rgba(229, 23, 31, 0.25),
+    0 0 22px rgba(229, 23, 31, 0.08),
+    inset 0 1px rgba(255, 255, 255, 0.2);
+}
+.button:active {
+  transform: translateY(0);
+}
+.button:focus-visible {
+  outline: 2px solid rgba(255, 59, 67, 0.85);
+  outline-offset: 4px;
+}
+@keyframes buttonShine {
+  0%,
+  48% {
+    left: -55%;
+  }
+  72%,
+  100% {
+    left: 135%;
+  }
+}
+@keyframes buttonGlow {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+@media (max-width: 600px) {
+  .button {
+    min-height: 52px;
+    padding-inline: 24px;
+    gap: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button::before,
+  .button::after {
+    animation: none;
+  }
+  .button {
+    transition: none;
+  }
+}
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
