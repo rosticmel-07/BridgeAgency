@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-
 import { FiCheck, FiChevronDown } from 'react-icons/fi';
 
 import styles from './ProjectSelect.module.css';
@@ -12,8 +11,8 @@ type ProjectOption = {
 };
 
 type Props = {
-  initialValue?: string;
-  onChange?: () => void;
+  value: string;
+  onChange: (value: string) => void;
 };
 
 const options: ProjectOption[] = [
@@ -39,15 +38,12 @@ const options: ProjectOption[] = [
   },
 ];
 
-export function ProjectSelect({ initialValue = '', onChange }: Props) {
+export function ProjectSelect({ value, onChange }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
 
-  const initialOption =
-    options.find((option) => option.value === initialValue) ?? null;
-
-  const [selected, setSelected] = useState<ProjectOption | null>(initialOption);
-
   const [isOpen, setIsOpen] = useState(false);
+
+  const selected = options.find((option) => option.value === value) ?? null;
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -74,15 +70,12 @@ export function ProjectSelect({ initialValue = '', onChange }: Props) {
   }, []);
 
   const selectOption = (option: ProjectOption) => {
-    setSelected(option);
+    onChange(option.value);
     setIsOpen(false);
-    onChange?.();
   };
 
   return (
     <div ref={rootRef} className={styles.root}>
-      <input type="hidden" name="projectType" value={selected?.value ?? ''} />
-
       <button
         type="button"
         className={`${styles.trigger} ${isOpen ? styles.triggerOpen : ''}`}
@@ -105,7 +98,7 @@ export function ProjectSelect({ initialValue = '', onChange }: Props) {
       >
         <div className={styles.options} role="listbox">
           {options.map((option) => {
-            const isSelected = selected?.value === option.value;
+            const isSelected = option.value === value;
 
             return (
               <button

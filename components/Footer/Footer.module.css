@@ -11,31 +11,35 @@
     #080809;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
+
 .inner {
   width: 100%;
   max-width: 1240px;
   margin-inline: auto;
 }
+
 .main {
   display: grid;
-  grid-template-columns:
-    minmax(260px, 0.75fr)
-    minmax(0, 1.25fr);
+  grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
   align-items: start;
   gap: clamp(80px, 10vw, 160px);
   padding-bottom: clamp(70px, 7vw, 95px);
 }
+
 .brand {
   max-width: 320px;
 }
+
 .logo {
   display: block;
   width: fit-content;
 }
+
 .logo img {
   width: 118px;
   height: auto;
 }
+
 .brandText {
   max-width: 30ch;
   margin-top: 26px;
@@ -43,6 +47,7 @@
   line-height: 1.7;
   color: #8e8e96;
 }
+
 .contactLink {
   width: fit-content;
   display: inline-flex;
@@ -59,27 +64,33 @@
     border-color 0.3s ease,
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 .contactLink svg {
   width: 14px;
   height: 14px;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 .contactLink:hover {
   transform: translateY(-2px);
   border-color: var(--brand);
   color: #fff;
 }
+
 .contactLink:hover svg {
   transform: translate(3px, -3px);
 }
+
 .links {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(36px, 5vw, 72px);
 }
+
 .column {
   min-width: 0;
 }
+
 .columnTitle {
   display: block;
   margin-bottom: 24px;
@@ -89,11 +100,13 @@
   text-transform: uppercase;
   color: #66666e;
 }
+
 .columnLinks {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
+
 .footerLink {
   width: fit-content;
   display: inline-flex;
@@ -106,6 +119,7 @@
     color 0.3s ease,
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 .linkArrow {
   width: 11px;
   height: 11px;
@@ -116,28 +130,29 @@
     opacity 0.3s ease,
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 .footerLink:hover {
   color: #fff;
   transform: translateX(3px);
 }
+
 .footerLink:hover .linkArrow {
   opacity: 1;
   transform: translate(0, 0);
 }
+
 .socials {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
+
 .social {
   min-height: 42px;
   display: grid;
-  grid-template-columns:
-    29px
-    minmax(0, 1fr)
-    auto;
+  grid-template-columns: 29px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   padding: 5px 8px;
   border: 1px solid transparent;
   border-radius: 12px;
@@ -148,12 +163,14 @@
     border-color 0.3s ease,
     background 0.3s ease;
 }
+
 .social:hover {
   transform: translateX(3px);
   color: #fff;
   border-color: rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.025);
 }
+
 .socialIcon {
   width: 29px;
   height: 29px;
@@ -162,38 +179,67 @@
   border-radius: 50%;
   background: rgba(229, 23, 31, 0.065);
   color: var(--brand);
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 }
+
+.social:hover .socialIcon {
+  background: rgba(229, 23, 31, 0.11);
+  box-shadow: 0 0 20px rgba(229, 23, 31, 0.08);
+  transform: scale(1.04);
+}
+
 .socialIcon svg {
   width: 13px;
   height: 13px;
 }
+
 .socialName {
+  min-width: 0;
   font-size: 0.82rem;
   font-weight: 500;
 }
+
 .socialArrow {
   width: 11px;
   height: 11px;
   color: #5d5d64;
+  opacity: 0.7;
   transition:
     color 0.3s ease,
-    transform 0.3s ease;
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
 }
+
 .social:hover .socialArrow {
+  opacity: 1;
   transform: translate(2px, -2px);
   color: var(--brand);
 }
-.email {
+
+.emailAddress {
   display: block;
   width: fit-content;
-  margin-top: 20px;
-  font-size: 0.75rem;
+  max-width: 100%;
+  margin-top: 18px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.7rem;
+  line-height: 1.5;
   color: #66666e;
-  transition: color 0.3s ease;
+  overflow-wrap: anywhere;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
-.email:hover {
-  color: var(--ink);
+
+.emailAddress:hover {
+  color: #d7d7dc;
+  border-color: rgba(229, 23, 31, 0.5);
 }
+
 .bottom {
   min-height: 78px;
   display: flex;
@@ -203,6 +249,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
+
 .copyright {
   display: flex;
   align-items: center;
@@ -210,22 +257,28 @@
   font-size: 0.68rem;
   color: #5c5c64;
 }
+
 .bottomDot {
   width: 3px;
   height: 3px;
   border-radius: 50%;
   background: var(--brand);
 }
+
 .backToTop {
   display: inline-flex;
   align-items: center;
   gap: 11px;
+  padding: 0;
+  border: 0;
   background: transparent;
   color: #808087;
   font-size: 0.74rem;
   font-weight: 500;
+  cursor: pointer;
   transition: color 0.3s ease;
 }
+
 .backIcon {
   width: 34px;
   height: 34px;
@@ -236,16 +289,21 @@
   transition:
     color 0.3s ease,
     border-color 0.3s ease,
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s ease;
 }
+
 .backToTop:hover {
   color: #fff;
 }
+
 .backToTop:hover .backIcon {
   transform: translateY(-3px);
   color: var(--brand);
   border-color: rgba(229, 23, 31, 0.4);
+  background: rgba(229, 23, 31, 0.035);
 }
+
 .wordmark {
   margin-top: 28px;
   margin-bottom: -0.13em;
@@ -259,56 +317,79 @@
   user-select: none;
   pointer-events: none;
 }
+
 .wordmark span {
   color: rgba(229, 23, 31, 0.035);
 }
+
 @media (max-width: 1100px) {
   .main {
     gap: 65px;
   }
+
   .links {
     gap: 30px;
   }
 }
+
 @media (max-width: 900px) {
   .main {
     grid-template-columns: 1fr;
     gap: 60px;
   }
+
   .brand {
     max-width: 450px;
   }
+
   .brandText {
     max-width: 38ch;
   }
+
   .links {
-    max-width: 720px;
+    max-width: 760px;
   }
 }
+
 @media (max-width: 650px) {
   .footer {
     padding-top: 70px;
   }
+
   .main {
     gap: 52px;
     padding-bottom: 52px;
   }
+
   .logo img {
     width: 110px;
   }
+
   .brandText {
     margin-top: 22px;
   }
+
   .links {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 42px 25px;
   }
+
   .column:last-child {
-    grid-column: 1 / -1;
+    grid-column: 1/-1;
   }
+
   .socials {
-    max-width: 300px;
+    max-width: none;
   }
+
+  .social {
+    max-width: 280px;
+  }
+
+  .emailAddress {
+    font-size: 0.72rem;
+  }
+
   .bottom {
     min-height: auto;
     padding-block: 22px;
@@ -316,29 +397,40 @@
     align-items: flex-start;
     gap: 20px;
   }
+
   .copyright {
     flex-wrap: wrap;
   }
+
   .wordmark {
     margin-top: 30px;
     font-size: clamp(4rem, 21vw, 6.5rem);
   }
 }
+
 @media (max-width: 390px) {
   .links {
     grid-template-columns: 1fr;
   }
+
   .column:last-child {
     grid-column: auto;
   }
+
+  .social {
+    max-width: 100%;
+  }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .contactLink,
   .contactLink svg,
   .footerLink,
   .linkArrow,
   .social,
+  .socialIcon,
   .socialArrow,
+  .emailAddress,
   .backToTop,
   .backIcon {
     transition: none;

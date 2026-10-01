@@ -1,9 +1,10 @@
 'use client';
 
-import { useRef, useState, type FormEvent } from 'react';
+import { useState } from 'react';
+import { Field, Form, Formik, type FormikHelpers } from 'formik';
+import * as Yup from 'yup';
 
 import { FaTelegramPlane, FaViber } from 'react-icons/fa';
-
 import { FiAlertCircle, FiCheck, FiPhone } from 'react-icons/fi';
 
 import { ProjectSelect } from '@/components/ui/ProjectSelect/ProjectSelect';
@@ -12,16 +13,24 @@ import { PrimaryButton } from '@/components/ui/PrimaryButton/PrimaryButton';
 import styles from './Contact.module.css';
 
 type ContactMethod = 'telegram' | 'viber' | 'phone';
-
 type FormStatus = 'idle' | 'success' | 'error';
+
+type Props = {
+  serviceSlug?: string;
+};
+
+type FormValues = {
+  name: string;
+  contactMethod: ContactMethod;
+  contact: string;
+  projectType: string;
+  message: string;
+  website: string;
+};
 
 type ApiResponse = {
   ok?: boolean;
   error?: string;
-};
-
-type Props = {
-  serviceSlug?: string;
 };
 
 const contactMethods = [
@@ -42,35 +51,85 @@ const contactMethods = [
   },
 ];
 
+const projectTypes = [
+  '',
+  'landing',
+  'business-site',
+  'telegram-bot',
+  'site-ads',
+  'other',
+];
+
+const normalizePhone = (value: string) => {
+  return value.replace(/[\s()-]/g, '');
+};
+
+const isValidPhone = (value: string) => {
+  const normalized = normalizePhone(value);
+
+  return /^\+?[1-9]\d{9,14}$/.test(normalized);
+};
+
+const isValidTelegramUsername = (value: string) => {
+  return /^@[a-zA-Z0-9_]{5,32}$/.test(value.trim());
+};
+
+const validationSchema = Yup.object({
+  name: Yup.string()
+    .trim()
+    .min(2, 'Вкажіть щонайменше 2 символи')
+    .max(100, 'Ім’я занадто довге')
+    .matches(/^[\p{L}'’\-\s]+$/u, 'Перевірте ім’я')
+    .required('Вкажіть ваше ім’я'),
+
+  contactMethod: Yup.string().oneOf(['telegram', 'viber', 'phone']).required(),
+
+  contact: Yup.string()
+    .trim()
+    .required('Вкажіть контакт')
+    .test('valid-contact', 'Некоректний формат', function (value) {
+      if (!value) return false;
+
+      const { contactMethod } = this.parent as FormValues;
+
+      if (contactMethod === 'telegram') {
+        if (value.trim().startsWith('@')) {
+          return isValidTelegramUsername(value);
+        }
+
+        return isValidPhone(value);
+      }
+
+      return isValidPhone(value);
+    }),
+
+  projectType: Yup.string().oneOf(
+    projectTypes,
+    'Оберіть коректний тип проєкту'
+  ),
+
+  message: Yup.string().max(800, 'Максимум 800 символів'),
+
+  website: Yup.string().max(0),
+});
+
 export function Contact({ serviceSlug = '' }: Props) {
-  const formRef = useRef<HTMLFormElement>(null);
-
-  const [contactMethod, setContactMethod] = useState<ContactMethod>('telegram');
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [status, setStatus] = useState<FormStatus>('idle');
-
   const [feedback, setFeedback] = useState('');
 
-  const [resetVersion, setResetVersion] = useState(0);
-
-  const clearFeedback = () => {
-    if (status !== 'idle') {
-      setStatus('idle');
-      setFeedback('');
-    }
+  const initialValues: FormValues = {
+    name: '',
+    contactMethod: 'telegram',
+    contact: '',
+    projectType: serviceSlug,
+    message: '',
+    website: '',
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (isSubmitting) return;
-
-    const formElement = event.currentTarget;
-    const form = new FormData(formElement);
-
-    setIsSubmitting(true);
+  const handleSubmit = async (
+    values: FormValues,
+    helpers: FormikHelpers<FormValues>
+  ) => {
     setStatus('idle');
     setFeedback('');
 
@@ -87,18 +146,24 @@ export function Contact({ serviceSlug = '' }: Props) {
         ].map((key) => [key, (searchParams.get(key) ?? '').slice(0, 150)])
       );
 
+      const contact =
+        values.contactMethod === 'telegram' &&
+        values.contact.trim().startsWith('@')
+          ? values.contact.trim()
+          : normalizePhone(values.contact);
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: form.get('name'),
-          contactMethod,
-          contact: form.get('contact'),
-          projectType: form.get('projectType') ?? '',
-          message: form.get('message') ?? '',
-          website: form.get('website') ?? '',
+          name: values.name.trim(),
+          contactMethod: values.contactMethod,
+          contact,
+          projectType: values.projectType,
+          message: values.message.trim(),
+          website: values.website,
           source: window.location.pathname,
           campaign,
         }),
@@ -118,14 +183,15 @@ export function Contact({ serviceSlug = '' }: Props) {
 
       trackingWindow.dataLayer.push({
         event: 'generate_lead',
-        service: form.get('projectType') || serviceSlug || 'other',
+        service: values.projectType || serviceSlug || 'other',
       });
 
-      formElement.reset();
-
-      setContactMethod('telegram');
-
-      setResetVersion((current) => current + 1);
+      helpers.resetForm({
+        values: {
+          ...initialValues,
+          projectType: serviceSlug,
+        },
+      });
 
       setStatus('success');
 
@@ -138,19 +204,12 @@ export function Contact({ serviceSlug = '' }: Props) {
       setFeedback(
         error instanceof Error
           ? error.message
-          : 'Не вдалося надіслати заявку. Спробуйте ще раз або напишіть нам у Telegram.'
+          : 'Не вдалося надіслати заявку. Спробуйте ще раз.'
       );
     } finally {
-      setIsSubmitting(false);
+      helpers.setSubmitting(false);
     }
   };
-
-  const contactPlaceholder =
-    contactMethod === 'telegram'
-      ? 'Номер телефону або @username'
-      : contactMethod === 'viber'
-        ? 'Номер телефону у Viber'
-        : 'Номер телефону';
 
   return (
     <section className={styles.section} id="contact">
@@ -173,156 +232,244 @@ export function Contact({ serviceSlug = '' }: Props) {
             </p>
           </header>
 
-          <form
-            ref={formRef}
-            className={styles.form}
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
             onSubmit={handleSubmit}
-            onInput={clearFeedback}
+            enableReinitialize
           >
-            <div className={styles.formGlow} aria-hidden />
+            {({
+              values,
+              errors,
+              touched,
+              isSubmitting,
+              setFieldValue,
+              setFieldTouched,
+            }) => {
+              const contactPlaceholder =
+                values.contactMethod === 'telegram'
+                  ? '@username або +380...'
+                  : '+380...';
 
-            <div className={styles.honeypot} aria-hidden="true">
-              <label htmlFor="website">Не заповнюйте це поле</label>
+              const clearFeedback = () => {
+                if (status !== 'idle') {
+                  setStatus('idle');
+                  setFeedback('');
+                }
+              };
 
-              <input
-                id="website"
-                name="website"
-                tabIndex={-1}
-                autoComplete="off"
-              />
-            </div>
+              const nameError = touched.name && errors.name;
 
-            <div className={styles.field}>
-              <label htmlFor="name">Ваше ім&apos;я</label>
+              const contactError = touched.contact && errors.contact;
 
-              <input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Як до вас звертатися?"
-                autoComplete="name"
-                maxLength={100}
-                required
-              />
-            </div>
+              const messageError = touched.message && errors.message;
 
-            <fieldset className={styles.contactMethods}>
-              <legend>Як вам зручніше спілкуватися?</legend>
+              return (
+                <Form
+                  className={styles.form}
+                  noValidate
+                  onInput={clearFeedback}
+                >
+                  <div className={styles.formGlow} aria-hidden />
 
-              <div className={styles.methodGrid}>
-                {contactMethods.map((method) => {
-                  const Icon = method.icon;
+                  <div className={styles.honeypot} aria-hidden="true">
+                    <label htmlFor="website">Не заповнюйте це поле</label>
 
-                  const isActive = contactMethod === method.id;
+                    <Field
+                      id="website"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
 
-                  return (
-                    <button
-                      key={method.id}
-                      type="button"
-                      className={`${styles.method} ${
-                        isActive ? styles.methodActive : ''
-                      }`}
-                      onClick={() => {
-                        setContactMethod(method.id);
+                  <div className={styles.field}>
+                    <div className={styles.labelRow}>
+                      <label htmlFor="name">Ваше ім&apos;я</label>
+
+                      {nameError && (
+                        <span className={styles.inlineError}>
+                          {errors.name}
+                        </span>
+                      )}
+                    </div>
+
+                    <Field
+                      id="name"
+                      name="name"
+                      type="text"
+                      autoComplete="name"
+                      maxLength={100}
+                      placeholder="Як до вас звертатися?"
+                      className={nameError ? styles.inputError : ''}
+                    />
+                  </div>
+
+                  <fieldset className={styles.contactMethods}>
+                    <legend>Як вам зручніше спілкуватися?</legend>
+
+                    <div className={styles.methodGrid}>
+                      {contactMethods.map((method) => {
+                        const Icon = method.icon;
+
+                        const isActive = values.contactMethod === method.id;
+
+                        return (
+                          <button
+                            key={method.id}
+                            type="button"
+                            className={`${styles.method} ${
+                              isActive ? styles.methodActive : ''
+                            }`}
+                            onClick={async () => {
+                              await setFieldValue('contactMethod', method.id);
+
+                              await setFieldValue('contact', '');
+
+                              setFieldTouched('contact', false);
+
+                              clearFeedback();
+                            }}
+                            aria-pressed={isActive}
+                          >
+                            <Icon className={styles.methodIcon} aria-hidden />
+
+                            <span>{method.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </fieldset>
+
+                  <div className={styles.field}>
+                    <div className={styles.labelRow}>
+                      <label htmlFor="contact">Контакт</label>
+
+                      {contactError && (
+                        <span className={styles.inlineError}>
+                          {errors.contact}
+                        </span>
+                      )}
+                    </div>
+
+                    <Field
+                      id="contact"
+                      name="contact"
+                      type="text"
+                      inputMode={
+                        values.contactMethod === 'telegram' ? 'text' : 'tel'
+                      }
+                      autoComplete={
+                        values.contactMethod === 'telegram' ? 'off' : 'tel'
+                      }
+                      maxLength={120}
+                      placeholder={contactPlaceholder}
+                      className={contactError ? styles.inputError : ''}
+                    />
+                  </div>
+
+                  <div className={styles.field}>
+                    <div className={styles.labelRow}>
+                      <label>
+                        Що потрібно? <span>необов&apos;язково</span>
+                      </label>
+
+                      {touched.projectType && errors.projectType && (
+                        <span className={styles.inlineError}>
+                          {errors.projectType}
+                        </span>
+                      )}
+                    </div>
+
+                    <ProjectSelect
+                      value={values.projectType}
+                      onChange={(value) => {
+                        setFieldValue('projectType', value);
+
+                        setFieldTouched('projectType', true, false);
 
                         clearFeedback();
                       }}
-                      aria-pressed={isActive}
+                    />
+                  </div>
+
+                  <div className={styles.field}>
+                    <div className={styles.labelRow}>
+                      <label htmlFor="message">
+                        Коротко про проєкт <span>необов&apos;язково</span>
+                      </label>
+
+                      <div className={styles.messageInfo}>
+                        {messageError && (
+                          <span className={styles.inlineError}>
+                            {errors.message}
+                          </span>
+                        )}
+
+                        <span className={styles.charCount}>
+                          {values.message.length}/800
+                        </span>
+                      </div>
+                    </div>
+
+                    <Field
+                      as="textarea"
+                      id="message"
+                      name="message"
+                      rows={3}
+                      maxLength={800}
+                      placeholder="Що потрібно зробити, чим займається ваш бізнес, які є побажання..."
+                      className={messageError ? styles.inputError : ''}
+                    />
+                  </div>
+
+                  <div className={styles.footer}>
+                    <PrimaryButton
+                      type="submit"
+                      disabled={isSubmitting}
+                      className={styles.submit}
                     >
-                      <Icon className={styles.methodIcon} aria-hidden />
+                      {isSubmitting ? 'Надсилаємо...' : 'Надіслати заявку'}
+                    </PrimaryButton>
 
-                      <span>{method.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </fieldset>
+                    <p className={styles.note}>
+                      Використаємо ваш контакт, щоб відповісти щодо проєкту.
+                    </p>
+                  </div>
 
-            <div className={styles.field}>
-              <label htmlFor="contact-value">Контакт</label>
+                  {status !== 'idle' && (
+                    <div
+                      className={`${styles.feedbackBox} ${
+                        status === 'success'
+                          ? styles.feedbackSuccess
+                          : styles.feedbackError
+                      }`}
+                      role="status"
+                      aria-live="polite"
+                    >
+                      <span className={styles.feedbackIcon}>
+                        {status === 'success' ? (
+                          <FiCheck aria-hidden />
+                        ) : (
+                          <FiAlertCircle aria-hidden />
+                        )}
+                      </span>
 
-              <input
-                id="contact-value"
-                name="contact"
-                type="text"
-                placeholder={contactPlaceholder}
-                minLength={3}
-                maxLength={120}
-                required
-              />
-            </div>
+                      <div className={styles.feedbackContent}>
+                        <strong>
+                          {status === 'success'
+                            ? 'Заявку надіслано'
+                            : 'Не вдалося надіслати'}
+                        </strong>
 
-            <div className={styles.field}>
-              <label>
-                Що потрібно? <span>необов&apos;язково</span>
-              </label>
-
-              <ProjectSelect
-                key={`${serviceSlug}-${resetVersion}`}
-                initialValue={serviceSlug}
-                onChange={clearFeedback}
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor="message">
-                Коротко про проєкт
-                <span> необов&apos;язково</span>
-              </label>
-
-              <textarea
-                id="message"
-                name="message"
-                rows={3}
-                maxLength={800}
-                placeholder="Що потрібно зробити, чим займається ваш бізнес, які є побажання..."
-              />
-            </div>
-
-            <div className={styles.footer}>
-              <PrimaryButton
-                type="submit"
-                disabled={isSubmitting}
-                className={styles.submit}
-              >
-                {isSubmitting ? 'Надсилаємо...' : 'Надіслати заявку'}
-              </PrimaryButton>
-
-              <p className={styles.note}>
-                Використаємо ваш контакт, щоб відповісти щодо проєкту.
-              </p>
-            </div>
-
-            {status !== 'idle' && (
-              <div
-                className={`${styles.feedbackBox} ${
-                  status === 'success'
-                    ? styles.feedbackSuccess
-                    : styles.feedbackError
-                }`}
-                role="status"
-                aria-live="polite"
-              >
-                <span className={styles.feedbackIcon}>
-                  {status === 'success' ? (
-                    <FiCheck aria-hidden />
-                  ) : (
-                    <FiAlertCircle aria-hidden />
+                        <p>{feedback}</p>
+                      </div>
+                    </div>
                   )}
-                </span>
-
-                <div className={styles.feedbackContent}>
-                  <strong>
-                    {status === 'success'
-                      ? 'Заявку надіслано'
-                      : 'Не вдалося надіслати'}
-                  </strong>
-
-                  <p>{feedback}</p>
-                </div>
-              </div>
-            )}
-          </form>
+                </Form>
+              );
+            }}
+          </Formik>
 
           <div className={styles.bottom}>
             <span className={styles.statusDot} aria-hidden />

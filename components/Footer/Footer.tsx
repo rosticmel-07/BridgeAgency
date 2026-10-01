@@ -3,11 +3,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { FiArrowUp, FiArrowUpRight } from 'react-icons/fi';
+import { FiArrowUp, FiArrowUpRight, FiMail } from 'react-icons/fi';
 
-import { FaTelegramPlane } from 'react-icons/fa';
+import { FaInstagram, FaLinkedinIn, FaTelegramPlane } from 'react-icons/fa';
 
 import styles from './Footer.module.css';
+
 import { services as serviceItems } from '@/data/services';
 import { TELEGRAM_URL } from '@/data/contact';
 
@@ -42,8 +43,32 @@ const services = serviceItems.map((service) => ({
   label: service.title,
   href: service.href,
 }));
+
 const socials = [
-  { label: 'Telegram', href: TELEGRAM_URL, icon: FaTelegramPlane },
+  {
+    label: 'Telegram',
+    href: TELEGRAM_URL,
+    icon: FaTelegramPlane,
+    external: true,
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/bridg.eagency/',
+    icon: FaInstagram,
+    external: true,
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/rostic-melnychuk/?isSelfProfile=true',
+    icon: FaLinkedinIn,
+    external: true,
+  },
+  {
+    label: 'Email',
+    href: 'mailto:agency.bridgeee@gmail.com',
+    icon: FiMail,
+    external: false,
+  },
 ];
 
 export function Footer() {
@@ -58,13 +83,7 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className="container">
         <div className={styles.inner}>
-          {/* =========================
-              MAIN
-          ========================= */}
-
           <div className={styles.main}>
-            {/* BRAND */}
-
             <div className={styles.brand}>
               <Link
                 href="/#top"
@@ -86,18 +105,11 @@ export function Footer() {
 
               <Link href="/#contact" className={styles.contactLink}>
                 <span>Обговорити проєкт</span>
-
                 <FiArrowUpRight aria-hidden />
               </Link>
             </div>
 
-            {/* =========================
-                COLUMNS
-            ========================= */}
-
             <div className={styles.links}>
-              {/* NAVIGATION */}
-
               <div className={styles.column}>
                 <span className={styles.columnTitle}>Навігація</span>
 
@@ -118,8 +130,6 @@ export function Footer() {
                   ))}
                 </nav>
               </div>
-
-              {/* SERVICES */}
 
               <div className={styles.column}>
                 <span className={styles.columnTitle}>Послуги</span>
@@ -142,8 +152,6 @@ export function Footer() {
                 </div>
               </div>
 
-              {/* CONTACTS */}
-
               <div className={styles.column}>
                 <span className={styles.columnTitle}>Контакти</span>
 
@@ -155,9 +163,12 @@ export function Footer() {
                       <a
                         key={social.label}
                         href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target={social.external ? '_blank' : undefined}
+                        rel={
+                          social.external ? 'noopener noreferrer' : undefined
+                        }
                         className={styles.social}
+                        aria-label={social.label}
                       >
                         <span className={styles.socialIcon}>
                           <Icon aria-hidden />
@@ -175,13 +186,16 @@ export function Footer() {
                     );
                   })}
                 </div>
+
+                <a
+                  href="mailto:agency.bridgeee@gmail.com"
+                  className={styles.emailAddress}
+                >
+                  agency.bridgeee@gmail.com
+                </a>
               </div>
             </div>
           </div>
-
-          {/* =========================
-              BOTTOM BAR
-          ========================= */}
 
           <div className={styles.bottom}>
             <div className={styles.copyright}>
@@ -204,10 +218,6 @@ export function Footer() {
               </span>
             </button>
           </div>
-
-          {/* =========================
-              BACKGROUND WORDMARK
-          ========================= */}
 
           <div className={styles.wordmark} aria-hidden>
             BRIDGE <span>AGENCY</span>
