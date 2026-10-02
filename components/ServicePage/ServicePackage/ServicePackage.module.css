@@ -319,3 +319,133 @@
     margin-top: 30px;
   }
 }
+
+.botPayment {
+  width: min(100%, 330px);
+  margin-top: 38px;
+  padding: 22px;
+  border: 1px solid rgba(229, 23, 31, 0.22);
+  border-radius: 20px;
+  background:
+    radial-gradient(
+      90% 120% at 100% 0,
+      rgba(229, 23, 31, 0.09),
+      transparent 68%
+    ),
+    rgba(255, 255, 255, 0.015);
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.2),
+    inset 0 1px rgba(255, 255, 255, 0.025);
+}
+
+.botPaymentTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.botPaymentLabel {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  color: #85858d;
+}
+
+.botPaymentBadge {
+  min-width: 58px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(229, 23, 31, 0.28);
+  border-radius: 999px;
+  background: rgba(229, 23, 31, 0.07);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.botPaymentFlow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #aaaab1;
+}
+
+.botPaymentFlow svg {
+  width: 13px;
+  height: 13px;
+  color: #56565e;
+}
+
+.botPaymentFlow strong {
+  color: var(--brand);
+}
+
+.botPayment > p {
+  margin: 16px 0 0;
+  font-size: 0.76rem;
+  line-height: 1.65;
+  color: #83838b;
+}
+
+.botPaymentStatus {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.botPaymentStatus > span {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(229, 23, 31, 0.08);
+  color: var(--brand);
+}
+
+.botPaymentStatus svg {
+  width: 12px;
+  height: 12px;
+}
+
+.botPaymentStatus p {
+  margin: 0;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: #929299;
+}
+
+.botNote {
+  border-color: rgba(229, 23, 31, 0.18);
+  background: rgba(229, 23, 31, 0.025);
+}
+
+.botNote strong {
+  color: #f1f1f3;
+}
+
+@media (max-width: 700px) {
+  .botPayment {
+    width: 100%;
+    margin-top: 28px;
+    padding: 18px;
+  }
+
+  .botPaymentFlow {
+    gap: 6px;
+    font-size: 0.73rem;
+  }
+}

@@ -22,6 +22,7 @@ type CaseDetail = {
 };
 
 type ServiceCaseConfig = {
+  portfolioCaseId: number;
   category: string;
   eyebrow: string;
   headline: string;
@@ -49,6 +50,7 @@ type ServiceCaseConfig = {
 
 const caseContent: Record<string, ServiceCaseConfig> = {
   landing: {
+    portfolioCaseId: 2,
     category: 'ЛЕНДІНГ',
     eyebrow: '03 / ПРИКЛАД РОБОТИ',
     headline: 'Композитна сітка —',
@@ -94,6 +96,7 @@ const caseContent: Record<string, ServiceCaseConfig> = {
   },
 
   'business-site': {
+    portfolioCaseId: 1,
     category: 'БАГАТОСТОРІНКОВИЙ САЙТ',
     eyebrow: '03 / ПРИКЛАД РОБОТИ',
     headline: 'Сайт для компанії —',
@@ -138,6 +141,8 @@ const caseContent: Record<string, ServiceCaseConfig> = {
   },
 
   'telegram-bot': {
+    portfolioCaseId: 3,
+
     category: 'TELEGRAM-БОТ',
     eyebrow: '03 / ПРИКЛАД РОБОТИ',
     headline: 'AI-бот для рієлторів —',
@@ -183,6 +188,8 @@ const caseContent: Record<string, ServiceCaseConfig> = {
   },
 
   'site-ads': {
+    portfolioCaseId: 2,
+
     category: 'САЙТ + РЕКЛАМА',
     eyebrow: '03 / ПРИКЛАД РОБОТИ',
     headline: 'Сайт і реклама —',
@@ -235,7 +242,7 @@ export function ServiceCaseStudy({ caseStudy, slug }: Props) {
     return null;
   }
 
-  const portfolioHref = `/?case=${caseStudy.id}#portfolio`;
+  const portfolioHref = `/?case=${config.portfolioCaseId}#portfolio`;
 
   return (
     <section className={styles.section} id="case">

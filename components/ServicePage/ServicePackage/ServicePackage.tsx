@@ -1,7 +1,12 @@
+import { FiCheck, FiArrowRight } from 'react-icons/fi';
+
 import { PrimaryButton } from '@/components/ui/PrimaryButton/PrimaryButton';
-import type { ServiceDetail, ServiceItem } from '@/types/types';
-import { Reveal } from '../Reveal/Reveal';
 import { PaymentSeal } from '@/components/ui/PaymentSeal/PaymentSeal';
+
+import type { ServiceDetail, ServiceItem } from '@/types/types';
+
+import { Reveal } from '../Reveal/Reveal';
+
 import styles from './ServicePackage.module.css';
 
 type Props = {
@@ -11,12 +16,13 @@ type Props = {
 };
 
 export function ServicePackage({ service, detail, isBot }: Props) {
-  const sealValue = isBot ? '100%' : '50%';
-  const sealLabel = isBot ? 'ОПЛАТИ' : 'ОПЛАТИ';
-  const sealSub = isBot ? 'ПІСЛЯ ТЕСТУВАННЯ' : 'ПІСЛЯ ПОГОДЖЕННЯ КОНЦЕПЦІЇ';
-  const sealRingText = isBot
-    ? 'ПІСЛЯ ТЕСТУВАННЯ • ПОТІМ ОПЛАТА • ПІСЛЯ ТЕСТУВАННЯ • ПОТІМ ОПЛАТА • '
-    : 'ПЕРШИЙ ЕКРАН • ПОТІМ ОПЛАТА • ПІСЛЯ ПОГОДЖЕННЯ КОНЦЕПЦІЇ • ПОТІМ ОПЛАТА • ';
+  const paymentTitle = isBot
+    ? 'Тестування → приймання → 100% оплати'
+    : detail.payment;
+
+  const paymentDescription = isBot
+    ? 'Спочатку ви тестуєте погоджені функції бота. Після перевірки та приймання готового результату сплачуєте 100% вартості.'
+    : detail.separate;
 
   return (
     <section className={styles.section} id="package">
@@ -34,7 +40,42 @@ export function ServicePackage({ service, detail, isBot }: Props) {
           та за яку суму.
         </p>
 
-        <PaymentSeal className={styles.packageSeal} />
+        {isBot ? (
+          <div className={styles.botPayment}>
+            <div className={styles.botPaymentTop}>
+              <span className={styles.botPaymentLabel}>ОПЛАТА БОТА</span>
+
+              <span className={styles.botPaymentBadge}>100%</span>
+            </div>
+
+            <div className={styles.botPaymentFlow}>
+              <span>Тестування</span>
+
+              <FiArrowRight aria-hidden />
+
+              <span>Приймання</span>
+
+              <FiArrowRight aria-hidden />
+
+              <strong>Оплата</strong>
+            </div>
+
+            <p>
+              Ви спочатку перевіряєте погоджені функції. Оплата — тільки після
+              приймання готового бота.
+            </p>
+
+            <div className={styles.botPaymentStatus}>
+              <span>
+                <FiCheck aria-hidden />
+              </span>
+
+              <p>Без 50% передоплати після концепції</p>
+            </div>
+          </div>
+        ) : (
+          <PaymentSeal className={styles.packageSeal} />
+        )}
       </Reveal>
 
       <Reveal className={styles.card} delay={100}>
@@ -45,6 +86,7 @@ export function ServicePackage({ service, detail, isBot }: Props) {
 
         <div className={styles.price}>
           {!service.fixedPrice && <small>від</small>}
+
           <strong>${service.price}</strong>
         </div>
 
@@ -59,12 +101,15 @@ export function ServicePackage({ service, detail, isBot }: Props) {
           ))}
         </ul>
 
-        <div className={styles.note}>
-          <strong>{detail.payment}</strong>
-          <p>{detail.separate}</p>
+        <div className={`${styles.note} ${isBot ? styles.botNote : ''}`}>
+          <strong>{paymentTitle}</strong>
+
+          <p>{paymentDescription}</p>
         </div>
 
-        <PrimaryButton href="#contact">Обговорити цей пакет</PrimaryButton>
+        <PrimaryButton href="#contact">
+          {isBot ? 'Обговорити Telegram-бота' : 'Обговорити цей пакет'}
+        </PrimaryButton>
       </Reveal>
     </section>
   );
