@@ -25,17 +25,44 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+
   const service = services.find((item) => item.href === `/services/${slug}`);
-  if (!service) return {};
-  const title = `${service.title} — ${service.fixedPrice ? '' : 'від '}$${service.price} | Bridge Agency`;
+
+  if (!service) {
+    return {};
+  }
+
+  const pathname = `/services/${slug}`;
+
+  const priceText = service.fixedPrice
+    ? `$${service.price}`
+    : `від $${service.price}`;
+
+  const title = `${service.title} — ${priceText}`;
+
+  const description = service.description;
+
   return {
     title,
-    description: service.description,
+    description,
+
+    alternates: {
+      canonical: pathname,
+    },
+
     openGraph: {
-      title,
-      description: service.description,
-      locale: 'uk_UA',
       type: 'website',
+      locale: 'uk_UA',
+      url: pathname,
+      siteName: 'Bridge Agency',
+      title: `${title} | Bridge Agency`,
+      description,
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Bridge Agency`,
+      description,
     },
   };
 }

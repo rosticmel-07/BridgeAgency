@@ -26,25 +26,25 @@ const projectMedia: Record<string, MediaConfig> = {
     src: '/portfolio/safety.png',
     alt: 'Сайт компанії з охорони праці',
     type: 'browser',
-    url: '',
+    url: 'https://rosticmel-07.github.io/occupational-health/',
   },
   composite: {
     src: '/portfolio/composite.png',
     alt: 'Лендінг виробника композитної сітки',
     type: 'browser',
-    url: '',
+    url: 'https://rosticmel-07.github.io/KompoSite/',
   },
   realtor: {
     src: '/portfolio/realtor.png',
     alt: 'Telegram AI-бот для рієлторів',
     type: 'phone',
-    url: '',
+    url: 'https://t.me/realtor_bot',
   },
   game: {
     src: '/portfolio/game.png',
     alt: 'Промо-лендінг мобільної гри',
     type: 'browser',
-    url: '',
+    url: 'https://katerynakulik.github.io/STP-12572/',
   },
 };
 

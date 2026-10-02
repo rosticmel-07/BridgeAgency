@@ -5,10 +5,11 @@ import { PaymentSection } from '@/components/PaymentSection/PaymentSection';
 import { Portfolio } from '@/components/Portfolio/Portfolio';
 import { FAQ } from '@/components/Faq/Faq';
 import { Contact } from '@/components/Contact/Contact';
-
+import { OrganizationJsonLd } from '@/components/Seo/OrganizationJsonLd';
 export default function Home() {
   return (
     <main>
+      <OrganizationJsonLd />
       <Hero />
       <About />
       <Services />

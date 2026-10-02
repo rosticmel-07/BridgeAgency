@@ -1,0 +1,136 @@
+.page {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 120px 20px 70px;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(700px, 90vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(229, 23, 31, 0.08);
+  filter: blur(150px);
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 760px);
+  text-align: center;
+}
+
+.code {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 14vw, 10rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.07em;
+  color: rgba(255, 255, 255, 0.035);
+}
+
+.kicker {
+  margin: 38px 0 0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #85858d;
+}
+
+.content h1 {
+  margin: 22px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.content h1 span {
+  color: var(--brand);
+}
+
+.description {
+  max-width: 520px;
+  margin: 26px auto 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #929299;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.primary,
+.secondary {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-inline: 22px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.primary {
+  background: var(--brand);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(229, 23, 31, 0.2);
+}
+
+.secondary {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.015);
+  color: var(--ink);
+}
+
+.primary:hover,
+.secondary:hover {
+  transform: translateY(-2px);
+}
+
+.secondary:hover {
+  border-color: rgba(229, 23, 31, 0.35);
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding-top: 90px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .primary,
+  .secondary {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary,
+  .secondary {
+    transition: none;
+  }
+}

@@ -201,9 +201,15 @@ export function Footer() {
             <div className={styles.copyright}>
               <span>© 2026 Bridge Agency</span>
 
-              <span className={styles.bottomDot} aria-hidden />
+              <span className={styles.bottomDot} />
 
               <span>Всі права захищені</span>
+
+              <span className={styles.bottomDot} />
+
+              <Link href="/privacy" className={styles.privacyLink}>
+                Політика конфіденційності
+              </Link>
             </div>
 
             <button

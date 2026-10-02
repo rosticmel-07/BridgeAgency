@@ -15,7 +15,7 @@ const navigation = [
   { label: 'Портфоліо', href: '/#portfolio' },
   { label: 'Про нас', href: '/#about' },
   { label: 'Контакти', href: '/#contact' },
-  { label: 'Запитання', href: '/#faq  ' },
+  { label: 'Запитання', href: '/#faq' },
 ];
 
 export default function Header() {

@@ -397,6 +397,14 @@
     align-items: flex-start;
     gap: 20px;
   }
+  .privacyLink {
+    color: #6f6f77;
+    transition: color 0.25s ease;
+  }
+
+  .privacyLink:hover {
+    color: #fff;
+  }
 
   .copyright {
     flex-wrap: wrap;
