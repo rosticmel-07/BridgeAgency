@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-
+import { FiArrowUpRight } from 'react-icons/fi';
 import styles from './privacy.module.css';
 
 export const metadata: Metadata = {
@@ -235,7 +235,7 @@ export default function PrivacyPage() {
 
             <Link href="/" className={styles.homeLink}>
               Повернутися на сайт
-              <span>↗</span>
+              <FiArrowUpRight aria-hidden />
             </Link>
           </footer>
         </div>

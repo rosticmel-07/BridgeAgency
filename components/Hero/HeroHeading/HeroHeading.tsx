@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { PrimaryButton } from '@/components/ui/PrimaryButton/PrimaryButton';
-
+import { FiArrowUpRight, FiArrowRight } from 'react-icons/fi';
 import styles from './HeroHeading.module.css';
 
 export function HeroHeading() {
@@ -31,7 +31,7 @@ export function HeroHeading() {
       </p>
 
       <Link href="/services/landing" className={styles.offer}>
-        Лендінг за $150 <span aria-hidden>↗</span>
+        Лендінг за $150 <FiArrowUpRight aria-hidden />
       </Link>
 
       <div className={styles.actions}>
@@ -41,7 +41,7 @@ export function HeroHeading() {
           <span>Дивитись кейси</span>
 
           <span className={styles.arrow} aria-hidden>
-            →
+            <FiArrowRight aria-hidden />
           </span>
         </a>
       </div>

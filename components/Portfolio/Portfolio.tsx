@@ -260,7 +260,7 @@ export function Portfolio() {
                   <div className={styles.stackCard}>
                     <div className={styles.detailHeading}>
                       <span>STACK</span>
-                      <span>↗</span>
+                      <FiArrowUpRight aria-hidden/>
                     </div>
 
                     <div className={styles.stack}>

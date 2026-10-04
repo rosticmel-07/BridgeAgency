@@ -2,7 +2,7 @@ import type { ServiceDetail } from '@/types/types';
 import { Reveal } from '../Reveal/Reveal';
 import { ServiceSectionHeader } from '../ServiceSectionHeader/ServiceSectionHeader';
 import styles from './ServiceAudience.module.css';
-
+import { FiArrowUpRight } from 'react-icons/fi';
 type Props = { detail: ServiceDetail };
 
 export function ServiceAudience({ detail }: Props) {
@@ -24,7 +24,9 @@ export function ServiceAudience({ detail }: Props) {
                 <h3>{title}</h3>
                 <p>{text}</p>
               </div>
-              <span className={styles.arrow}>↗</span>
+              <span className={styles.arrow}>
+                <FiArrowUpRight aria-hidden />
+              </span>
             </article>
           </Reveal>
         ))}

@@ -2,6 +2,7 @@ import type { ServiceDetail } from '@/types/types';
 import { Reveal } from '../Reveal/Reveal';
 import { ServiceSectionHeader } from '../ServiceSectionHeader/ServiceSectionHeader';
 import styles from './ServiceFeatures.module.css';
+import { FiArrowUpRight } from 'react-icons/fi';
 
 type Props = { detail: ServiceDetail };
 
@@ -22,7 +23,9 @@ export function ServiceFeatures({ detail }: Props) {
             <article className={styles.card}>
               <div className={styles.top}>
                 <span>0{index + 1}</span>
-                <span>↗</span>
+                <span>
+                  <FiArrowUpRight aria-hidden />
+                </span>
               </div>
               <h3>{title}</h3>
               <p>{text}</p>

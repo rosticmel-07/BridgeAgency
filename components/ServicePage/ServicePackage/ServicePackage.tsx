@@ -1,10 +1,7 @@
-import { FiCheck, FiArrowRight } from 'react-icons/fi';
-
+import { FiCheck, FiArrowRight, FiArrowUpRight } from 'react-icons/fi';
 import { PrimaryButton } from '@/components/ui/PrimaryButton/PrimaryButton';
 import { PaymentSeal } from '@/components/ui/PaymentSeal/PaymentSeal';
-
 import type { ServiceDetail, ServiceItem } from '@/types/types';
-
 import { Reveal } from '../Reveal/Reveal';
 
 import styles from './ServicePackage.module.css';
@@ -81,7 +78,9 @@ export function ServicePackage({ service, detail, isBot }: Props) {
       <Reveal className={styles.card} delay={100}>
         <div className={styles.top}>
           <span>{detail.packageName}</span>
-          <span>↗</span>
+          <span>
+            <FiArrowUpRight aria-hidden />
+          </span>
         </div>
 
         <div className={styles.price}>

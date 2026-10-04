@@ -5,6 +5,7 @@ import { FiPlus } from 'react-icons/fi';
 import { TELEGRAM_URL } from '@/data/contact';
 import type { ServiceDetail } from '@/types/types';
 import styles from './ServiceFaq.module.css';
+import { FiArrowUpRight } from 'react-icons/fi';
 
 type Props = {
   detail: ServiceDetail;
@@ -44,7 +45,7 @@ export function ServiceFaq({ detail }: Props) {
             <p>
               Не знайшли відповіді?{' '}
               <a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">
-                Напишіть у Telegram ↗
+                Напишіть у Telegram <FiArrowUpRight aria-hidden />
               </a>
             </p>
           </div>

@@ -1,10 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-
 import { PrimaryButton } from '@/components/ui/PrimaryButton/PrimaryButton';
 import { PaymentSeal } from '@/components/ui/PaymentSeal/PaymentSeal';
-
 import styles from './PaymentSection.module.css';
 
 const steps = [

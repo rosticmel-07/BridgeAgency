@@ -1,16 +1,17 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-import { FiFileText, FiMessageCircle, FiX } from 'react-icons/fi';
-
+import {
+  FiFileText,
+  FiMessageCircle,
+  FiX,
+  FiArrowUpRight,
+  FiArrowRight,
+} from 'react-icons/fi';
 import { FaRobot, FaTelegramPlane } from 'react-icons/fa';
-
 import styles from './FloatingContact.module.css';
-
 import { TELEGRAM_URL } from '@/data/contact';
 
 const BOT_URL = '';
@@ -84,7 +85,7 @@ export function FloatingContact() {
           </span>
 
           <span className={styles.itemArrow} aria-hidden>
-            ↗
+            <FiArrowUpRight aria-hidden />
           </span>
         </a>
 
@@ -107,7 +108,7 @@ export function FloatingContact() {
           </span>
 
           <span className={styles.itemArrow} aria-hidden>
-            →
+            <FiArrowUpRight aria-hidden />
           </span>
         </Link>
 
@@ -133,7 +134,7 @@ export function FloatingContact() {
             </span>
 
             <span className={styles.itemArrow} aria-hidden>
-              ↗
+              <FiArrowUpRight aria-hidden />
             </span>
           </a>
         ) : (

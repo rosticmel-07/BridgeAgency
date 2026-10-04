@@ -2,6 +2,7 @@
 import { useId, useState } from 'react';
 import type { ServiceSlug } from '@/data/serviceDetails';
 import styles from './ServiceExperience.module.css';
+import { FiArrowUpRight } from 'react-icons/fi';
 const screens = [
   {
     label: 'Пропозиція',
@@ -72,7 +73,7 @@ const journey = [
     label: 'Оголошення',
     title: 'Привертаємо увагу',
     text: 'Конкретна пропозиція для погодженої аудиторії.',
-    icon: '↗',
+    icon: <FiArrowUpRight aria-hidden />,
   },
   {
     label: 'Сайт',
@@ -182,11 +183,16 @@ export function ServiceExperience({ kind }: { kind: ServiceSlug }) {
             <div className={styles.browserBar}>
               <span>● ● ●</span>
               <span>ваш-бізнес.ua</span>
-              <span>↗</span>
+              <span>
+                <FiArrowUpRight aria-hidden />
+              </span>
             </div>
             <div className={styles.screen}>
               <div className={styles.brand}>
-                ВАШ БІЗНЕС<span>↗</span>
+                ВАШ БІЗНЕС
+                <span>
+                  <FiArrowUpRight aria-hidden />
+                </span>
               </div>
               <div className={styles.screenCopy}>
                 <span className={styles.index}>
@@ -207,7 +213,7 @@ export function ServiceExperience({ kind }: { kind: ServiceSlug }) {
               </div>
               {kind === 'landing' ? (
                 <span className={styles.demoButton}>
-                  {screens[active].action} ↗
+                  {screens[active].action} <FiArrowUpRight aria-hidden />
                 </span>
               ) : (
                 <div className={styles.miniCards}>

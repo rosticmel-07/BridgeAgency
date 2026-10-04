@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { ServiceItem } from '@/types/types';
 import { Reveal } from '../Reveal/Reveal';
 import styles from './OtherServices.module.css';
-
+import { FiArrowUpRight } from 'react-icons/fi';
 type Props = {
   services: ServiceItem[];
   currentHref: string;
@@ -26,7 +26,9 @@ export function OtherServices({ services, currentHref }: Props) {
               <span>{item.title}</span>
               <strong>
                 {item.fixedPrice ? '' : 'від '}${item.price}
-                <small>↗</small>
+                <small>
+                  <FiArrowUpRight aria-hidden />
+                </small>
               </strong>
             </Link>
           </Reveal>
