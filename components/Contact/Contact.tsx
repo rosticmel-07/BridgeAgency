@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+
 import { Field, Form, Formik, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
@@ -31,6 +32,15 @@ type FormValues = {
 type ApiResponse = {
   ok?: boolean;
   error?: string;
+};
+
+type TrackingWindow = Window & {
+  dataLayer?: Record<string, unknown>[];
+  fbq?: (
+    action: string,
+    event: string,
+    params?: Record<string, unknown>
+  ) => void;
 };
 
 const contactMethods = [
@@ -88,7 +98,9 @@ const validationSchema = Yup.object({
     .trim()
     .required('Вкажіть контакт')
     .test('valid-contact', 'Некоректний формат', function (value) {
-      if (!value) return false;
+      if (!value) {
+        return false;
+      }
 
       const { contactMethod } = this.parent as FormValues;
 
@@ -175,9 +187,7 @@ export function Contact({ serviceSlug = '' }: Props) {
         throw new Error(result.error || 'Не вдалося надіслати заявку.');
       }
 
-      const trackingWindow = window as Window & {
-        dataLayer?: Record<string, unknown>[];
-      };
+      const trackingWindow = window as TrackingWindow;
 
       trackingWindow.dataLayer = trackingWindow.dataLayer || [];
 
@@ -185,6 +195,12 @@ export function Contact({ serviceSlug = '' }: Props) {
         event: 'generate_lead',
         service: values.projectType || serviceSlug || 'other',
       });
+
+      if (trackingWindow.fbq) {
+        trackingWindow.fbq('track', 'Lead', {
+          content_name: values.projectType || serviceSlug || 'other',
+        });
+      }
 
       helpers.resetForm({
         values: {
@@ -259,9 +275,7 @@ export function Contact({ serviceSlug = '' }: Props) {
               };
 
               const nameError = touched.name && errors.name;
-
               const contactError = touched.contact && errors.contact;
-
               const messageError = touched.message && errors.message;
 
               return (
@@ -311,7 +325,6 @@ export function Contact({ serviceSlug = '' }: Props) {
                     <div className={styles.methodGrid}>
                       {contactMethods.map((method) => {
                         const Icon = method.icon;
-
                         const isActive = values.contactMethod === method.id;
 
                         return (

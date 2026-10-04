@@ -3,6 +3,7 @@ import Header from '@/components/Header/Header';
 import { FloatingContact } from '@/components/ui/FloatingContact/FloatingContact';
 import './globals.css';
 import { Footer } from '@/components/Footer/Footer';
+import { MetaPixel } from '@/components/analytics/MetaPixel';
 
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site';
 
@@ -60,6 +61,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <FloatingContact />
+        <MetaPixel />
       </body>
     </html>
   );
