@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
+
 import Header from '@/components/Header/Header';
 import { FloatingContact } from '@/components/ui/FloatingContact/FloatingContact';
-import './globals.css';
 import { Footer } from '@/components/Footer/Footer';
 import { MetaPixel } from '@/components/analytics/MetaPixel';
 
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site';
+
+import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -30,12 +32,21 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: 'Bridge Agency — сайти, Telegram-боти та реклама',
     description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Bridge Agency',
+      },
+    ],
   },
 
   twitter: {
     card: 'summary_large_image',
     title: 'Bridge Agency — сайти, Telegram-боти та реклама',
     description: SITE_DESCRIPTION,
+    images: ['/twitter-image.png'],
   },
 
   robots: {
@@ -59,6 +70,7 @@ export default function RootLayout({
         <Header />
 
         {children}
+
         <Footer />
         <FloatingContact />
         <MetaPixel />
