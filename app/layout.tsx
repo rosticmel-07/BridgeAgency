@@ -4,7 +4,7 @@ import Header from '@/components/Header/Header';
 import { FloatingContact } from '@/components/ui/FloatingContact/FloatingContact';
 import { Footer } from '@/components/Footer/Footer';
 import { MetaPixel } from '@/components/analytics/MetaPixel';
-
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site';
 
 import './globals.css';
@@ -74,6 +74,7 @@ export default function RootLayout({
         <Footer />
         <FloatingContact />
         <MetaPixel />
+        <GoogleAnalytics />
       </body>
     </html>
   );

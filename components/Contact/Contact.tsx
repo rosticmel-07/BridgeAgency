@@ -14,6 +14,7 @@ import { PrimaryButton } from '@/components/ui/PrimaryButton/PrimaryButton';
 import styles from './Contact.module.css';
 
 type ContactMethod = 'telegram' | 'viber' | 'phone';
+
 type FormStatus = 'idle' | 'success' | 'error';
 
 type Props = {
@@ -36,11 +37,14 @@ type ApiResponse = {
 
 type TrackingWindow = Window & {
   dataLayer?: Record<string, unknown>[];
+
   fbq?: (
     action: string,
     event: string,
     params?: Record<string, unknown>
   ) => void;
+
+  gtag?: (...args: unknown[]) => void;
 };
 
 const contactMethods = [
@@ -189,16 +193,26 @@ export function Contact({ serviceSlug = '' }: Props) {
 
       const trackingWindow = window as TrackingWindow;
 
+      const service = values.projectType || serviceSlug || 'other';
+
       trackingWindow.dataLayer = trackingWindow.dataLayer || [];
 
       trackingWindow.dataLayer.push({
         event: 'generate_lead',
-        service: values.projectType || serviceSlug || 'other',
+        service,
       });
 
       if (trackingWindow.fbq) {
         trackingWindow.fbq('track', 'Lead', {
-          content_name: values.projectType || serviceSlug || 'other',
+          content_name: service,
+        });
+      }
+
+      if (trackingWindow.gtag) {
+        trackingWindow.gtag('event', 'generate_lead', {
+          service,
+          page_location: window.location.href,
+          page_path: window.location.pathname,
         });
       }
 
@@ -325,6 +339,7 @@ export function Contact({ serviceSlug = '' }: Props) {
                     <div className={styles.methodGrid}>
                       {contactMethods.map((method) => {
                         const Icon = method.icon;
+
                         const isActive = values.contactMethod === method.id;
 
                         return (
